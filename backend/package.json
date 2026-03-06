@@ -5,15 +5,20 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --exec node --loader ts-node/esm src/index.ts",
+    "dev": "nodemon --exec tsx src/index.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "seed": "tsx prisma/seed.ts"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.13.1",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.4.2",
     "@prisma/client": "^7.4.2",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
@@ -27,7 +32,7 @@
     "@types/node": "^25.3.3",
     "nodemon": "^3.1.14",
     "prisma": "^7.4.2",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
 }
