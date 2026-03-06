@@ -380,6 +380,73 @@ Send a user message, store it, call OpenAI with full history, store AI reply, an
   }
 }
 ```
+## 🧪 Testing with Postman
+
+### Setup
+Open Postman → **New → Collection** → name it `CortexAI`.
+
+---
+
+### Test each route in order:
+
+#### 1. Create a Conversation
+```
+Method: POST
+URL:    http://localhost:5000/api/conversations
+Body:   raw → JSON
+
+{
+  "title": "Test Chat"
+}
+```
+> Copy the `id` from the response — you'll need it for the next requests.
+
+---
+
+#### 2. Get All Conversations
+```
+Method: GET
+URL:    http://localhost:5000/api/conversations
+```
+
+---
+
+#### 3. Get One Conversation
+```
+Method: GET
+URL:    http://localhost:5000/api/conversations/PASTE_ID_HERE
+```
+
+---
+
+#### 4. Send a Message
+```
+Method: POST
+URL:    http://localhost:5000/api/messages
+Body:   raw → JSON
+
+{
+  "conversationId": "PASTE_ID_HERE",
+  "content": "What is a black hole?"
+}
+```
+> This is the big one — it hits OpenRouter and returns the AI reply.
+
+---
+
+#### 5. Delete a Conversation
+```
+Method: DELETE
+URL:    http://localhost:5000/api/conversations/PASTE_ID_HERE
+```
+
+---
+
+### 💡 Tips
+- Always set `Content-Type: application/json` in **Headers** for POST requests — Postman does this automatically when you select `raw → JSON`
+- Run requests **in order** — create conversation first, then send message
+- If you get a `400`, your JSON body is wrong — check the Zod validation error in the response for details
+- If you get a `500`, check your terminal where the backend is running for the actual error
 
 ---
 
